@@ -64,7 +64,7 @@ export const ActivityFeed: FC = () => {
         </div>
       ) : (
         activities.map((a, i) => {
-          const mapping = iconMap[a.type] ?? iconMap.image;
+          const mapping = (iconMap[a.type] ?? iconMap.image)!;
           const Icon = mapping.icon;
           const color = mapping.color;
 
