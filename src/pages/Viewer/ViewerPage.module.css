@@ -1,0 +1,246 @@
+.page {
+  animation: fadeIn 0.3s ease;
+  display: flex;
+  margin: -24px -28px;
+  height: calc(100vh - 56px);
+}
+
+/* Series Panel */
+.seriesPanel {
+  width: 220px;
+  background: var(--color-card);
+  border-right: 1px solid var(--color-border);
+  padding: 16px 12px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.seriesTitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-ter);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.seriesItem {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 4px;
+  cursor: pointer;
+  background: transparent;
+  border-left: 3px solid transparent;
+}
+
+.seriesItemActive {
+  background: var(--color-accent-soft);
+  border-left-color: var(--color-accent);
+}
+
+.seriesThumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: #1a1a2e;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seriesThumbCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.caseInfo {
+  border-top: 1px solid var(--color-border);
+  margin-top: 12px;
+  padding-top: 12px;
+  display: none;
+}
+
+.caseInfoTitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-ter);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.caseInfoRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+/* Canvas */
+.canvas {
+  flex: 1;
+  background: #12151e;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.toolbarInner {
+  display: flex;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+  padding: 4px 6px;
+}
+
+.toolBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toolDivider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 4px;
+}
+
+.windowSelect {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.canvasArea {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlayTL {
+  position: absolute;
+  top: 52px;
+  left: 16px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  line-height: 1.6;
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+}
+
+.overlayTR {
+  position: absolute;
+  top: 52px;
+  right: 16px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  text-align: right;
+  line-height: 1.6;
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+}
+
+.overlayBL {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  font-size: 11px;
+  color: #38bdf8;
+  font-family: monospace;
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+}
+
+.overlayBR {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-size: 11px;
+  color: #38bdf8;
+  font-family: monospace;
+  z-index: 5;
+  pointer-events: none;
+  display: none;
+}
+
+/* Metadata Panel */
+.metaPanel {
+  width: 240px;
+  background: var(--color-card);
+  border-left: 1px solid var(--color-border);
+  overflow-y: auto;
+  flex-shrink: 0;
+  display: none;
+}
+
+.metaTabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.metaTab {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-ter);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.metaTabActive {
+  border-bottom-color: var(--color-accent);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.metaBody {
+  padding: 14px;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: 11px;
+}

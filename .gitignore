@@ -1,0 +1,115 @@
+# ===============================
+# Dependencias
+# ===============================
+node_modules/
+.pnp
+.pnp.js
+
+# ===============================
+# Build / Output
+# ===============================
+dist/
+build/
+*.tsbuildinfo
+
+# ===============================
+# SEGURIDAD - Variables de entorno y secretos
+# ===============================
+.env
+.env.*
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+*.local
+
+# Claves privadas y certificados
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Credenciales de servicios cloud
+*.json.enc
+*-credentials.json
+*-service-account.json
+service-account*.json
+firebase-adminsdk*.json
+google-credentials*.json
+
+# Tokens y secretos
+.secret
+.secrets/
+*.secret
+*.secrets
+.npmrc
+.yarnrc
+
+# ===============================
+# SEGURIDAD - Datos sensibles médicos (HIPAA/GDPR)
+# ===============================
+*.dcm
+*.dicom
+*.nii
+*.nii.gz
+*.mha
+*.mhd
+*.raw
+patient_data/
+medical_data/
+phi/
+
+# ===============================
+# IDE / Editor
+# ===============================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ===============================
+# Testing / Coverage
+# ===============================
+coverage/
+*.lcov
+.nyc_output/
+
+# ===============================
+# Logs y debug
+# ===============================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+debug.log
+
+# ===============================
+# OS
+# ===============================
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===============================
+# Misc
+# ===============================
+*.cache
+.parcel-cache/
+.turbo/
+.vercel/
+.netlify/

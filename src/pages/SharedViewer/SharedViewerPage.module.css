@@ -1,0 +1,256 @@
+.page {
+  width: 100vw;
+  height: 100vh;
+  background: #12151e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.viewer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvasArea {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlayTL {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  line-height: 1.6;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.overlayTR {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  text-align: right;
+  line-height: 1.6;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.overlayBL {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  font-size: 11px;
+  color: #38bdf8;
+  font-family: monospace;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.overlayBR {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-size: 11px;
+  color: #38bdf8;
+  font-family: monospace;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.badge {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: monospace;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.errorBox {
+  color: #f87171;
+  font-size: 16px;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.errorSub {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.loader {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ---- Collection gallery layout ---- */
+.collectionLayout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.collectionSidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #181b26;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.collectionTitle {
+  padding: 16px 14px 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.collectionCount {
+  padding: 0 14px 12px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.thumbnailList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 6px 6px;
+}
+
+.thumbnailItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 2px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.thumbnailItem:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.thumbnailItemActive {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.thumbnailIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: monospace;
+  flex-shrink: 0;
+}
+
+.thumbnailInfo {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.thumbnailName {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.thumbnailMeta {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.collectionViewer {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.navControls {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+.navBtn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.navBtn:hover:not(:disabled) {
+  color: #fff;
+}
+
+.navBtn:disabled {
+  color: rgba(255, 255, 255, 0.2);
+  cursor: default;
+}
+
+.navCounter {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: monospace;
+  min-width: 40px;
+  text-align: center;
+}

@@ -1,0 +1,41 @@
+.body {
+  font-size: 13px;
+  color: var(--color-text-sec);
+  line-height: 1.6;
+}
+
+.intro {
+  margin: 0 0 14px;
+}
+
+.list {
+  margin: 0 0 18px;
+  padding-left: 18px;
+}
+
+.list li {
+  margin-bottom: 10px;
+}
+
+.list li strong {
+  color: var(--color-text);
+}
+
+.checkLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  margin-top: 3px;
+  accent-color: var(--color-accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
