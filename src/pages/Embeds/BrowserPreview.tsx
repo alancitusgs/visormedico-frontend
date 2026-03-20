@@ -22,15 +22,26 @@ export const BrowserPreview: FC<BrowserPreviewProps> = ({ embedUrl }) => (
       </div>
       <div className={styles.browserContent} style={embedUrl ? { height: 240 } : undefined}>
         {embedUrl ? (
-          <iframe
-            src={embedUrl}
-            style={{
-              width: '100%',
-              height: '100%',
-              border: 'none',
-            }}
-            title="Preview del visor"
-          />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 12 }}>
+            <div style={{ fontSize: 12, color: 'var(--color-text-ter)', textAlign: 'center', padding: '0 16px' }}>
+              La preview no está disponible aquí porque el visor solo se muestra en dominios autorizados.
+            </div>
+            <a
+              href={embedUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: 12,
+                color: 'var(--color-accent)',
+                textDecoration: 'none',
+                padding: '6px 14px',
+                border: '1px solid var(--color-accent)',
+                borderRadius: 6,
+              }}
+            >
+              Abrir visor en nueva pestaña
+            </a>
+          </div>
         ) : (
           <div style={{ textAlign: 'center' }}>
             <div className={styles.previewCircle} />

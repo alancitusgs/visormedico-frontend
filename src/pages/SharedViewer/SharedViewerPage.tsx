@@ -12,6 +12,17 @@ import styles from './SharedViewerPage.module.css';
  * origin matches one of the allowed domains.  When accessed directly
  * (not inside an iframe) the viewer is always allowed.
  */
+function matchesDomain(hostname: string, hostWithPort: string, allowedDomains: string[]): boolean {
+  return allowedDomains.some((d) => {
+    // Strip protocol and trailing slashes
+    const clean = d.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+    // Strip port from stored domain for hostname-only comparison
+    const cleanHost = clean.replace(/:\d+$/, '');
+    // Match against both "hostname" and "hostname:port"
+    return hostname === cleanHost || hostWithPort === clean || hostname.endsWith(`.${cleanHost}`);
+  });
+}
+
 function isOriginAllowed(allowedDomains: string[]): boolean {
   // Not inside an iframe → direct access, always OK
   if (window.self === window.top) return true;
@@ -19,26 +30,26 @@ function isOriginAllowed(allowedDomains: string[]): boolean {
   // No domains configured → block all embeds
   if (allowedDomains.length === 0) return false;
 
-  // Use document.referrer to determine the parent frame's origin
+  // Strategy 1: Use document.referrer
   const referrer = document.referrer;
-  if (!referrer) return false;
-
-  try {
-    const parentUrl = new URL(referrer);
-    const parentHost = parentUrl.hostname;
-    const parentOrigin = parentUrl.host; // hostname:port
-
-    return allowedDomains.some((d) => {
-      // Strip protocol and trailing slashes
-      const clean = d.replace(/^https?:\/\//, '').replace(/\/+$/, '');
-      // Strip port from stored domain for hostname-only comparison
-      const cleanHost = clean.replace(/:\d+$/, '');
-      // Match against both "hostname" and "hostname:port"
-      return parentHost === cleanHost || parentOrigin === clean || parentHost.endsWith(`.${cleanHost}`);
-    });
-  } catch {
-    return false;
+  if (referrer) {
+    try {
+      const parentUrl = new URL(referrer);
+      return matchesDomain(parentUrl.hostname, parentUrl.host, allowedDomains);
+    } catch { /* fall through */ }
   }
+
+  // Strategy 2: Use ancestorOrigins (Chrome/Edge) when referrer is blocked
+  const ancestors = (window.location as any).ancestorOrigins;
+  if (ancestors && ancestors.length > 0) {
+    try {
+      const parentUrl = new URL(ancestors[0]);
+      return matchesDomain(parentUrl.hostname, parentUrl.host, allowedDomains);
+    } catch { /* fall through */ }
+  }
+
+  // No way to determine parent origin → block
+  return false;
 }
 
 // ---------- Single image viewer (unchanged) ----------
