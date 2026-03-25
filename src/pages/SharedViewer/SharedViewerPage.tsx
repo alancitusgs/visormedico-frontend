@@ -7,52 +7,7 @@ import { SvsViewer } from '@/pages/Viewer/SvsViewer';
 import type { StudyWithUrls } from '@/types';
 import styles from './SharedViewerPage.module.css';
 
-/**
- * Check whether the current page is embedded in an iframe whose parent
- * origin matches one of the allowed domains.  When accessed directly
- * (not inside an iframe) the viewer is always allowed.
- */
-function matchesDomain(hostname: string, hostWithPort: string, allowedDomains: string[]): boolean {
-  return allowedDomains.some((d) => {
-    // Strip protocol and trailing slashes
-    const clean = d.replace(/^https?:\/\//, '').replace(/\/+$/, '');
-    // Strip port from stored domain for hostname-only comparison
-    const cleanHost = clean.replace(/:\d+$/, '');
-    // Match against both "hostname" and "hostname:port"
-    return hostname === cleanHost || hostWithPort === clean || hostname.endsWith(`.${cleanHost}`);
-  });
-}
-
-function isOriginAllowed(allowedDomains: string[]): boolean {
-  // Not inside an iframe → direct access, always OK
-  if (window.self === window.top) return true;
-
-  // No domains configured → block all embeds
-  if (allowedDomains.length === 0) return false;
-
-  // Strategy 1: Use document.referrer
-  const referrer = document.referrer;
-  if (referrer) {
-    try {
-      const parentUrl = new URL(referrer);
-      return matchesDomain(parentUrl.hostname, parentUrl.host, allowedDomains);
-    } catch { /* fall through */ }
-  }
-
-  // Strategy 2: Use ancestorOrigins (Chrome/Edge) when referrer is blocked
-  const ancestors = (window.location as any).ancestorOrigins;
-  if (ancestors && ancestors.length > 0) {
-    try {
-      const parentUrl = new URL(ancestors[0]);
-      return matchesDomain(parentUrl.hostname, parentUrl.host, allowedDomains);
-    } catch { /* fall through */ }
-  }
-
-  // No way to determine parent origin → block
-  return false;
-}
-
-// ---------- Single image viewer (unchanged) ----------
+// ---------- Single image viewer ----------
 
 const SharedSingleViewer: FC<{ imageData: SharedImageData }> = ({ imageData }) => {
   const isSvs = imageData.type === 'svs' && imageData.dzi_path;
@@ -179,15 +134,12 @@ export const SharedViewerPage: FC = () => {
       return;
     }
 
-    // Try single image first, then collection
+    // Try single image first, then collection.
+    // Domain-level iframe protection is enforced server-side via CSP
+    // frame-ancestors on the /api/viewer/embed/{token} wrapper.
     publicService
       .getSharedImage(token)
-      .then(({ image, allowedDomains }) => {
-        if (!isOriginAllowed(allowedDomains)) {
-          setError('Este dominio no tiene autorización para mostrar este visor');
-          setLoading(false);
-          return;
-        }
+      .then(({ image }) => {
         setImageData(image);
         setLoading(false);
       })
@@ -195,12 +147,7 @@ export const SharedViewerPage: FC = () => {
         // Not a single image — try collection
         publicService
           .getSharedCollection(token)
-          .then(({ collectionName, images, allowedDomains }) => {
-            if (!isOriginAllowed(allowedDomains)) {
-              setError('Este dominio no tiene autorización para mostrar este visor');
-              setLoading(false);
-              return;
-            }
+          .then(({ collectionName, images }) => {
             setCollectionData({ collectionName, images });
             setLoading(false);
           })

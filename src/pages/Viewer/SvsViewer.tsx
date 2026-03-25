@@ -65,21 +65,26 @@ const SvsViewerInner: FC<SvsViewerProps> = ({ image }) => {
   useEffect(() => {
     if (!containerRef.current || !image.dzi_path) return;
 
+    // Use WebGL for sharper rendering and better compositing.
+    // Fall back to canvas on devices where WebGL is unavailable.
+    const dpr = window.devicePixelRatio || 1;
+
     const viewer = OpenSeadragon({
       element: containerRef.current,
       tileSources: image.dzi_path,
       prefixUrl: '',
-      drawer: 'canvas',
+      drawer: ['webgl', 'canvas'],
       crossOriginPolicy: 'Anonymous',
       showNavigator: true,
       navigatorPosition: 'BOTTOM_RIGHT',
       navigatorSizeRatio: 0.15,
       showNavigationControl: false,
       minZoomLevel: 0.1,
-      maxZoomLevel: 40,
+      maxZoomLevel: 200,
       visibilityRatio: 0.5,
       constrainDuringPan: false,
       animationTime: 0.3,
+      immediateRender: true,
       gestureSettingsMouse: {
         scrollToZoom: true,
         clickToZoom: true,
@@ -90,9 +95,26 @@ const SvsViewerInner: FC<SvsViewerProps> = ({ image }) => {
         pinchToZoom: true,
         flickEnabled: true,
       },
-    });
+      // Render at the display's native pixel density so tiles are sharp
+      // on HiDPI / Retina screens (2×, 3×, etc.).
+      // Property exists at runtime but is missing from OSD 6 type defs.
+      ...({ pixelDensityRatio: dpr } as any),
+    } as OpenSeadragon.Options);
 
     viewerRef.current = viewer;
+
+    // For the canvas fallback: disable image smoothing at high zoom so
+    // individual pixels stay crisp instead of being bilinear-blurred.
+    viewer.addHandler('tile-drawing', (event: Record<string, any>) => {
+      const ctx: CanvasRenderingContext2D | null =
+        event.rendered?.getContext?.('2d') ?? event.context ?? null;
+      if (!ctx) return;
+      const zoom = viewer.viewport.getZoom(true);
+      const homeZoom = viewer.viewport.getHomeZoom();
+      const ratio = zoom / homeZoom;
+      const sharp = ratio > 4;
+      ctx.imageSmoothingEnabled = !sharp;
+    });
 
     viewer.addHandler('zoom', () => {
       const currentZoom = viewer.viewport.getZoom();
@@ -106,16 +128,26 @@ const SvsViewerInner: FC<SvsViewerProps> = ({ image }) => {
     };
   }, [image.dzi_path, dispatch, viewerRef]);
 
-  // Fetch slide properties (MPP) once
+  // Fetch slide properties (MPP + objective power) and adjust viewer limits
   useEffect(() => {
     const stem = extractStem(image.dzi_path);
     if (!stem) return;
     studiesService.getSlideProperties(stem).then((props) => {
       if (props.mpp) dispatch({ type: 'SET_MPP', mpp: props.mpp });
+
+      // Allow digital zoom up to 3× beyond the native objective power.
+      // This matches commercial viewers like PathPresenter that let users
+      // zoom past the optical resolution for fine inspection.
+      const viewer = viewerRef.current;
+      if (viewer && props.objective_power) {
+        const homeZoom = viewer.viewport.getHomeZoom();
+        const nativeMax = homeZoom * props.objective_power * 3;
+        (viewer.viewport as any).maxZoomLevel = Math.min(nativeMax, 500);
+      }
     }).catch(() => {
       // MPP not available for this slide
     });
-  }, [image.dzi_path, dispatch]);
+  }, [image.dzi_path, dispatch, viewerRef]);
 
   // Callback: persist a new annotation to backend after it's added to state
   const handleAnnotationAdded = useCallback(
