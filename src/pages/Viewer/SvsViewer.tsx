@@ -85,6 +85,8 @@ const SvsViewerInner: FC<SvsViewerProps> = ({ image }) => {
       constrainDuringPan: false,
       animationTime: 0.3,
       immediateRender: true,
+      // Load more tiles in parallel so the sharp version appears faster
+      imageLoaderLimit: 6,
       gestureSettingsMouse: {
         scrollToZoom: true,
         clickToZoom: true,

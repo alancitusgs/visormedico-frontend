@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@/guards/ProtectedRoute';
 import { GuestRoute } from '@/guards/GuestRoute';
+import { AdminRoute } from '@/guards/AdminRoute';
 import { SystemLayout } from '@/layouts/SystemLayout/SystemLayout';
 import { LoginPage } from '@/pages/Login/LoginPage';
 import { DashboardPage } from '@/pages/Dashboard/DashboardPage';
@@ -14,6 +15,7 @@ import { CourseDetailPage } from '@/pages/Courses/CourseDetailPage';
 // import { CollectionDetailPage } from '@/pages/Collections/CollectionDetailPage';
 import { EmbedsPage } from '@/pages/Embeds/EmbedsPage';
 import { CorsPage } from '@/pages/Cors/CorsPage';
+import { UsersPage } from '@/pages/Users/UsersPage';
 import { SharedViewerPage } from '@/pages/SharedViewer/SharedViewerPage';
 import { TestEmbedPage } from '@/pages/TestEmbed/TestEmbedPage';
 
@@ -45,6 +47,10 @@ const App = () => (
         {/* <Route path="/collections/:collectionId" element={<CollectionDetailPage />} /> */}
         <Route path="/embeds" element={<EmbedsPage />} />
         <Route path="/cors" element={<CorsPage />} />
+        {/* Solo administradores */}
+        <Route element={<AdminRoute />}>
+          <Route path="/users" element={<UsersPage />} />
+        </Route>
       </Route>
     </Route>
 

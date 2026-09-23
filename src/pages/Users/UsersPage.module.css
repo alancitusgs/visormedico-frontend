@@ -1,0 +1,214 @@
+.page {
+  animation: fadeIn 0.3s ease;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-ter);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tr {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tr:last-child {
+  border-bottom: none;
+}
+
+.tdName {
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.tdEmail {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--color-text-sec);
+}
+
+.tdDate {
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--color-text-ter);
+  white-space: nowrap;
+}
+
+.tdActions {
+  padding: 12px 14px;
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionBtn:hover {
+  background: var(--color-bg);
+}
+
+.actionBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.empty {
+  padding: 32px 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-ter);
+}
+
+/* Role badges */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: capitalize;
+}
+
+.badgeAdmin {
+  background: rgba(244, 197, 66, 0.15);
+  color: #b8860b;
+}
+
+.badgeDocente {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+
+.badgeEstudiante {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.selfTag {
+  margin-left: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-ter);
+}
+
+/* Form */
+.formTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 14px;
+}
+
+.label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  margin-top: 12px;
+}
+
+.label:first-of-type {
+  margin-top: 0;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-surface, #fff);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--color-accent);
+}
+
+.passwordWrap {
+  position: relative;
+}
+
+.passwordWrap .input {
+  padding-right: 34px;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--color-text-ter);
+  margin-top: 4px;
+}
+
+.error {
+  color: var(--color-red, #e25950);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.cancelLink {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--color-text-ter);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancelLink:hover {
+  color: var(--color-accent);
+}

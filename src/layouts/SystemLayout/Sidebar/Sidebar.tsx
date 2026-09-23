@@ -11,6 +11,7 @@ import {
   // GradIcon,
   CodeIcon,
   GlobeIcon,
+  UserIcon,
   LogoutIcon,
   CollapseIcon,
   ExpandIcon,
@@ -29,6 +30,7 @@ interface NavItem {
 interface NavSection {
   label: string;
   items: NavItem[];
+  adminOnly?: boolean;
 }
 
 const navigation: NavSection[] = [
@@ -56,6 +58,13 @@ const navigation: NavSection[] = [
       { icon: GlobeIcon, label: 'Dominios CORS', path: '/cors' },
     ],
   },
+  {
+    label: 'ADMINISTRACIÓN',
+    adminOnly: true,
+    items: [
+      { icon: UserIcon, label: 'Usuarios', path: '/users' },
+    ],
+  },
 ];
 
 interface SidebarProps {
@@ -64,8 +73,12 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  const visibleSections = navigation.filter(
+    (section) => !section.adminOnly || user?.role === 'admin',
+  );
 
   const handleLogout = () => {
     logout();
@@ -98,7 +111,7 @@ export const Sidebar: FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto pb-2">
-        {navigation.map((section) => (
+        {visibleSections.map((section) => (
           <div key={section.label}>
             {!collapsed ? (
               <div className="text-[10px] font-bold tracking-[0.1em] uppercase text-[#D9D9D9]/35 px-4 pt-5 pb-1.5">
