@@ -19,7 +19,7 @@ export const LoginPage: FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [dni, setDni] = useState('');
+  const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [remember, setRemember] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -33,18 +33,18 @@ export const LoginPage: FC = () => {
   }, []);
 
   const handleSubmit = async () => {
-    if (!dni.trim() || !pass.trim()) {
+    if (!email.trim() || !pass.trim()) {
       setError('Completa todos los campos');
       return;
     }
-    if (!/^\d{8}$/.test(dni.trim())) {
-      setError('El DNI debe tener 8 dígitos');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email.trim())) {
+      setError('Ingresa un correo electrónico válido');
       return;
     }
     setError('');
     setLoading(true);
     try {
-      await login(dni, pass);
+      await login(email.trim().toLowerCase(), pass);
       setLoading(false);
       setSuccess(true);
     } catch {
@@ -64,9 +64,8 @@ export const LoginPage: FC = () => {
     if (e.key === 'Enter') handleSubmit();
   };
 
-  const handleDniChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const v = e.target.value.replace(/\D/g, '').slice(0, 8);
-    setDni(v);
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   /* ── Success state ── */
@@ -133,19 +132,20 @@ export const LoginPage: FC = () => {
             </div>
           )}
 
-          {/* DNI */}
+          {/* Email */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600 mb-1.5">DNI</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1.5">Correo electrónico</label>
             <div className="flex items-center border border-gray-300 rounded-lg h-12 px-4 bg-white transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
               <input
-                type="text"
-                inputMode="numeric"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
                 className="flex-1 border-none outline-none bg-transparent text-sm text-gray-900 font-barlow placeholder:text-gray-400"
-                placeholder="99999991"
-                value={dni}
-                onChange={handleDniChange}
+                placeholder="usuario@upch.pe"
+                value={email}
+                onChange={handleEmailChange}
                 onKeyDown={handleKeyDown}
-                maxLength={8}
+                maxLength={255}
               />
               <UserIcon color="#9ca3af" />
             </div>
@@ -185,7 +185,7 @@ export const LoginPage: FC = () => {
               onChange={(e) => setRemember(e.target.checked)}
               className="w-4 h-4 rounded border-gray-300 accent-primary"
             />
-            <span className="text-sm text-gray-600">Recordar usuario</span>
+            <span className="text-sm text-gray-600">Recordar correo</span>
           </label>
 
           {/* Submit */}

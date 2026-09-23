@@ -1,0 +1,156 @@
+.page {
+  animation: fadeIn 0.3s ease;
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.rangeBtn {
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text-sec);
+  font-size: 12px;
+  font-family: inherit;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.rangeBtn:hover {
+  border-color: var(--color-text-ter);
+}
+
+.rangeBtnActive {
+  composes: rangeBtn;
+  background: rgba(155, 3, 27, 0.08);
+  border-color: #9b031b;
+  color: #9b031b;
+  font-weight: 600;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: start;
+}
+
+.cardTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.cardSubtitle {
+  font-size: 11px;
+  color: var(--color-text-ter);
+  margin-bottom: 14px;
+}
+
+.deviceRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.deviceLabel {
+  width: 90px;
+  font-size: 12px;
+  color: var(--color-text-sec);
+  flex-shrink: 0;
+}
+
+.deviceTrack {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(155, 3, 27, 0.08);
+  overflow: hidden;
+}
+
+.deviceFill {
+  height: 100%;
+  border-radius: 5px;
+  background: #9b031b;
+  transition: width 0.3s ease;
+}
+
+.deviceValue {
+  width: 42px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-ter);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-sec);
+  white-space: nowrap;
+}
+
+.table td:first-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.targetCell {
+  color: var(--color-text);
+  font-weight: 600;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.typeBadge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.empty {
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-ter);
+}
+
+.loading {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}

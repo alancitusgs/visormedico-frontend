@@ -7,7 +7,7 @@ import { corsService } from '@/services/cors.service';
 import styles from './EmbedsPage.module.css';
 
 interface EmbedCreatorProps {
-  onCreated: (embedUrl: string) => void;
+  onCreated: (embedId: number) => void;
 }
 
 export const EmbedCreator: FC<EmbedCreatorProps> = ({ onCreated }) => {
@@ -44,7 +44,7 @@ export const EmbedCreator: FC<EmbedCreatorProps> = ({ onCreated }) => {
     setLoading(true);
     try {
       const result = await embedsService.createEmbed(selectedImageId!, selectedDomain);
-      onCreated(result.embed_url);
+      onCreated(result.id);
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Error al crear el visor embebido');
     } finally {

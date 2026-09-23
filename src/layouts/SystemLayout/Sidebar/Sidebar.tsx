@@ -8,9 +8,10 @@ import {
   MonitorIcon,
   CalendarIcon,
   BookIcon,
-  // GradIcon,
+  GradIcon,
   CodeIcon,
   GlobeIcon,
+  EyeIcon,
   UserIcon,
   LogoutIcon,
   CollapseIcon,
@@ -48,13 +49,14 @@ const navigation: NavSection[] = [
     items: [
       { icon: CalendarIcon, label: 'Periodos', path: '/periods' },
       { icon: BookIcon, label: 'Asignaturas', path: '/courses' },
-      // { icon: GradIcon, label: 'Colecciones', path: '/collections' },
+      { icon: GradIcon, label: 'Colecciones', path: '/collections' },
     ],
   },
   {
     label: 'COMPARTIR',
     items: [
       { icon: CodeIcon, label: 'Visores', path: '/embeds' },
+      { icon: EyeIcon, label: 'Visitas', path: '/visits' },
       { icon: GlobeIcon, label: 'Dominios CORS', path: '/cors' },
     ],
   },

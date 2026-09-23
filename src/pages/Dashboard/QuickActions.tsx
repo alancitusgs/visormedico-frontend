@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import type { IconProps } from '@/components/Icon/icons';
 import { Card } from '@/components';
 import { tokens } from '@/theme';
-import { UploadIcon, CodeIcon, GlobeIcon } from '@/components/Icon/icons';
+import { UploadIcon, CodeIcon, GlobeIcon, FolderIcon } from '@/components/Icon/icons';
 
 interface QuickAction {
   icon: FC<IconProps>;
@@ -16,7 +16,7 @@ const actions: QuickAction[] = [
   { icon: UploadIcon, label: 'Subir imágenes', color: tokens.accent, path: '/upload' },
   { icon: CodeIcon, label: 'Publicar visor', color: tokens.purple, path: '/embeds' },
   { icon: GlobeIcon, label: 'Gestionar CORS', color: tokens.cyan, path: '/cors' },
-  // { icon: FolderIcon, label: 'Nueva colección', color: tokens.blue, path: '/collections' },
+  { icon: FolderIcon, label: 'Nueva colección', color: tokens.blue, path: '/collections' },
 ];
 
 export const QuickActions: FC = () => {

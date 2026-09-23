@@ -27,13 +27,12 @@ const badgeClass: Record<UserRole, string | undefined> = {
   estudiante: styles.badgeEstudiante,
 };
 
-const emptyForm = { username: '', email: '', password: '', role: 'estudiante' as UserRole };
+const emptyForm = { email: '', password: '', role: 'estudiante' as UserRole };
 
 const validateForm = (
   form: typeof emptyForm,
   isEdit: boolean,
 ): string | null => {
-  if (form.username.trim().length < 3) return 'El usuario debe tener al menos 3 caracteres.';
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(form.email.trim())) return 'Correo electrónico inválido.';
   if (!isEdit || form.password) {
     if (form.password.length < 8) return 'La contraseña debe tener al menos 8 caracteres.';
@@ -58,7 +57,7 @@ export const UsersPage: FC = () => {
 
   useEffect(() => { load(); }, []);
 
-  const setField = (field: 'username' | 'email' | 'password') =>
+  const setField = (field: 'email' | 'password') =>
     (value: string) => setForm((prev) => ({ ...prev, [field]: value }));
 
   const handleSubmit = async () => {
@@ -73,7 +72,6 @@ export const UsersPage: FC = () => {
       if (editUser) {
         const updated = await usersService.updateUser({
           id: editUser.id,
-          username: form.username.trim(),
           email: form.email.trim(),
           role: form.role,
           ...(form.password ? { password: form.password } : {}),
@@ -82,7 +80,6 @@ export const UsersPage: FC = () => {
         setEditUser(null);
       } else {
         const created = await usersService.createUser({
-          username: form.username.trim(),
           email: form.email.trim(),
           password: form.password,
           role: form.role,
@@ -101,7 +98,7 @@ export const UsersPage: FC = () => {
 
   const startEdit = (user: ManagedUser) => {
     setEditUser(user);
-    setForm({ username: user.username, email: user.email, password: '', role: user.role });
+    setForm({ email: user.email, password: '', role: user.role });
     setError('');
   };
 
@@ -127,7 +124,6 @@ export const UsersPage: FC = () => {
   };
 
   const formValid =
-    form.username.trim().length > 0 &&
     form.email.trim().length > 0 &&
     (editUser !== null || form.password.length > 0);
 
@@ -139,7 +135,6 @@ export const UsersPage: FC = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th className={styles.th}>Usuario</th>
                 <th className={styles.th}>Correo</th>
                 <th className={styles.th}>Rol</th>
                 <th className={styles.th}>Creado</th>
@@ -149,7 +144,7 @@ export const UsersPage: FC = () => {
             <tbody>
               {users.length === 0 && (
                 <tr>
-                  <td colSpan={5} className={styles.empty}>No hay usuarios registrados.</td>
+                  <td colSpan={4} className={styles.empty}>No hay usuarios registrados.</td>
                 </tr>
               )}
               {users.map((u) => {
@@ -157,10 +152,9 @@ export const UsersPage: FC = () => {
                 return (
                   <tr key={u.id} className={styles.tr}>
                     <td className={styles.tdName}>
-                      {u.username}
+                      {u.email}
                       {isSelf && <span className={styles.selfTag}>(tú)</span>}
                     </td>
-                    <td className={styles.tdEmail}>{u.email}</td>
                     <td className={styles.tdEmail}>
                       <span className={`${styles.badge} ${badgeClass[u.role] ?? ''}`}>{u.role}</span>
                     </td>
@@ -192,18 +186,8 @@ export const UsersPage: FC = () => {
         {/* Form */}
         <Card>
           <div className={styles.formTitle}>
-            {editUser ? `Editar usuario: ${editUser.username}` : 'Nuevo usuario'}
+            {editUser ? `Editar usuario: ${editUser.email}` : 'Nuevo usuario'}
           </div>
-
-          <label className={styles.label}>Usuario</label>
-          <input
-            className={styles.input}
-            value={form.username}
-            onChange={(e) => setField('username')(e.target.value)}
-            placeholder="Ej: jperez"
-            autoComplete="off"
-            maxLength={50}
-          />
 
           <label className={styles.label}>Correo institucional</label>
           <input
@@ -283,7 +267,7 @@ export const UsersPage: FC = () => {
       {deleteUser && (
         <ConfirmDeleteModal
           title="Eliminar usuario"
-          message={`¿Eliminar a "${deleteUser.username}"? Esta acción no se puede deshacer.`}
+          message={`¿Eliminar a "${deleteUser.email}"? Esta acción no se puede deshacer.`}
           onConfirm={handleDelete}
           onClose={() => setDeleteUser(null)}
         />

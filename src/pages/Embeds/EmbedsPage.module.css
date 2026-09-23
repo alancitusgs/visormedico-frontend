@@ -1,8 +1,15 @@
 .page {
   animation: fadeIn 0.3s ease;
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 380px;
   gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
 }
 
 .sectionTitle {
@@ -32,24 +39,24 @@
   font-family: inherit;
 }
 
-.checkGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 16px;
+/* ── Código del visor ─────────────────────────── */
+
+.codeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.checkLabel {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.codeContext {
   font-size: 12px;
   color: var(--color-text-sec);
-  cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.checkbox {
-  accent-color: var(--color-accent);
+.codeContext strong {
+  color: var(--color-text);
+  font-weight: 600;
 }
 
 .codeBlock {
@@ -64,112 +71,178 @@
   margin: 0;
 }
 
-/* Browser preview */
-.browserFrame {
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-}
-
-.browserBar {
-  background: #f0f0f0;
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.browserDots {
-  display: flex;
-  gap: 4px;
-}
-
-.dotRed {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #e25950;
-}
-
-.dotYellow {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #f5a623;
-}
-
-.dotGreen {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #30b566;
-}
-
-.browserUrl {
-  flex: 1;
-  background: #fff;
-  border-radius: 3px;
-  padding: 2px 8px;
-  font-size: 9px;
+.codeEmpty {
   color: var(--color-text-ter);
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 24px 16px;
+  text-align: center;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
 }
 
-.browserContent {
-  height: 160px;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+/* ── Enlace público ───────────────────────────── */
+
+.publicLinkSection {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.publicLinkRow {
   display: flex;
+  gap: 8px;
   align-items: center;
-  justify-content: center;
 }
 
-.previewCircle {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: radial-gradient(#3a3f55, #252838);
-  margin: 0 auto 8px;
+.publicLinkInput {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-family: SFMono-Regular, Consolas, monospace;
+  color: var(--color-text-sec);
+  background: #f8fafc;
 }
 
-.previewLabel {
-  font-size: 9px;
-  color: rgba(255, 255, 255, 0.5);
+.publicLinkInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.openLinkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.openLinkBtn:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.publicLinkHint {
+  font-size: 11px;
+  color: var(--color-text-ter);
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+/* ── Visores Activos ──────────────────────────── */
+
+.emptyList {
+  color: var(--color-text-ter);
+  font-size: 12px;
+  padding: 8px 0;
 }
 
 .embedItem {
-  padding: 10px 0;
-}
-
-/* Target toggle (Imagen / Colección) */
-.targetToggle {
-  display: flex;
-  gap: 0;
-  margin-bottom: 14px;
-  border: 1px solid var(--color-border);
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
-  overflow: hidden;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
 
-.targetBtn {
-  flex: 1;
-  padding: 7px 0;
+.embedItem:hover {
+  border-color: var(--color-border);
+  background: var(--color-accent-soft);
+}
+
+.embedItem:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.embedItemSelected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.embedItemExpired {
+  opacity: 0.55;
+}
+
+.embedItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.embedItemName {
   font-size: 12px;
   font-weight: 600;
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
-  background: var(--color-surface);
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.embedItemMeta {
+  font-size: 10px;
   color: var(--color-text-ter);
-  transition: background 0.15s, color 0.15s;
+  margin-bottom: 8px;
 }
 
-.targetBtn:not(:last-child) {
-  border-right: 1px solid var(--color-border);
+.embedItemActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
 }
 
-.targetBtnActive {
-  background: var(--color-accent);
-  color: #fff;
+.embedActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--color-text-sec);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
+
+.embedActionBtn:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.embedActionBtnActive {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.embedActionBtnDanger {
+  margin-left: auto;
+  padding: 4px 6px;
+}
+
+.embedActionBtnDanger:hover {
+  color: #e25950;
+  border-color: #e25950;
+  background: rgba(226, 89, 80, 0.06);
+}
+
+/* ── Badges de tipo ───────────────────────────── */
 
 .embedTypeBadge {
   display: inline-block;
@@ -184,10 +257,10 @@
 
 .embedTypeBadgeImage {
   background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
+  color: #0284c7;
 }
 
 .embedTypeBadgeCollection {
   background: rgba(168, 85, 247, 0.15);
-  color: #a855f7;
+  color: #9333ea;
 }

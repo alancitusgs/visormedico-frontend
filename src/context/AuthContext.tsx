@@ -4,7 +4,7 @@ import type { AuthState } from '@/types';
 import { authService } from '@/services/auth.service';
 
 export interface AuthContextValue extends AuthState {
-  login: (username: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -36,8 +36,8 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, []);
 
-  const login = useCallback(async (username: string, password: string) => {
-    const response = await authService.login({ username, password });
+  const login = useCallback(async (email: string, password: string) => {
+    const response = await authService.login({ email, password });
     localStorage.setItem('visumed_token', response.token);
     setState({
       user: response.user,

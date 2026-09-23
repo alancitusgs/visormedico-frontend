@@ -182,7 +182,7 @@ export const CollectionDetailPage: FC = () => {
                     checked={selectedIds.includes(img.id)}
                     onChange={() => toggleImageId(img.id)}
                   />
-                  <span className={styles.imageName}>{img.original_name}</span>
+                  <span className={styles.imageName}>{img.display_name || img.original_name}</span>
                   <span className={styles.imageMeta}>{img.modality || '—'}</span>
                 </label>
               ))}

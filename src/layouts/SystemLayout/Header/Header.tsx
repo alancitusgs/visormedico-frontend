@@ -9,8 +9,9 @@ const pageTitles: Record<string, [string, string]> = {
   '/library': ['Biblioteca', 'Todas las imágenes DICOM'],
   '/viewer': ['Visor de imágenes médicas', ''],
   '/courses': ['Asignaturas', 'Gestión de asignaturas académicas'],
-  // '/collections': ['Colecciones', 'Agrupaciones de imágenes por asignatura'],
+  '/collections': ['Colecciones', 'Agrupaciones de imágenes por asignatura'],
   '/embeds': ['Visores Publicados', 'Generador de visores embebidos'],
+  '/visits': ['Visitas', 'Estadísticas de acceso al visor compartido'],
   '/cors': ['Dominios CORS', 'Control de acceso por dominio'],
   '/periods': ['Periodos', 'Gestión de periodos académicos'],
 };
@@ -21,7 +22,8 @@ export const Header: FC = () => {
 
   const basePath = '/' + (pathname.split('/')[1] ?? 'dashboard');
   const [title, subtitle] = pageTitles[basePath] ?? ['', ''];
-  const initials = user?.username?.slice(0, 2).toUpperCase() ?? 'VM';
+  const displayName = user?.email?.split('@')[0] ?? '';
+  const initials = displayName.slice(0, 2).toUpperCase() || 'VM';
 
   return (
     <header className="px-7 flex items-center justify-between border-b border-[var(--color-border)] bg-white h-14 shrink-0">
@@ -60,7 +62,7 @@ export const Header: FC = () => {
           </div>
           <div>
             <div className="text-xs font-semibold text-[var(--color-text)] leading-tight">
-              {user?.username ?? 'Usuario'}
+              {user?.email ?? 'Usuario'}
             </div>
             <div className="text-[10px] text-[var(--color-text-ter)]">
               {user?.role ?? 'Docente'}

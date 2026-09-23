@@ -4,11 +4,13 @@ export interface Study {
   id: number;
   filename: string;
   original_name: string;
+  display_name: string | null;
   file_size: number | null;
   patient_name: string | null;
   patient_id: string | null;
   study_date: string | null;
   modality: Modality | null;
+  course_id: number | null;
   uploaded_at: string;
   share_token: string | null;
 }

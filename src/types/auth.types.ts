@@ -1,12 +1,11 @@
 export interface User {
   id: number;
-  username: string;
   email: string;
   role: 'admin' | 'docente' | 'estudiante';
 }
 
 export interface LoginRequest {
-  username: string;
+  email: string;
   password: string;
 }
 

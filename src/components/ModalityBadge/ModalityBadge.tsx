@@ -16,7 +16,7 @@ const modalityColors: Record<Modality, string> = {
 };
 
 export const ModalityBadge: FC<ModalityBadgeProps> = ({ modality }) => {
-  const color = modalityColors[modality];
+  const color = modalityColors[modality] ?? tokens.blue;
 
   return (
     <span

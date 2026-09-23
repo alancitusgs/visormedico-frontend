@@ -90,7 +90,6 @@ export const CoursesPage: FC = () => {
                 <div className={styles.courseStats}>
                   <span><strong>{c.images}</strong> imgs</span>
                   <span><strong>{c.collections}</strong> colecciones</span>
-                  <span><strong>{c.embeds}</strong> visores</span>
                 </div>
               </div>
             </Card>

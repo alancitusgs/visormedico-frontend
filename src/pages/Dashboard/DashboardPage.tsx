@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { statsService } from '@/services/stats.service';
 import type { DashboardStats } from '@/types';
 import { tokens } from '@/theme';
-import { ImagesIcon, BookIcon, CodeIcon, GlobeIcon } from '@/components/Icon/icons';
+import { ImagesIcon, BookIcon, FolderIcon, CodeIcon, GlobeIcon } from '@/components/Icon/icons';
 import { StatCard } from './StatCard';
 import { ActivityFeed } from './ActivityFeed';
 import { QuickActions } from './QuickActions';
@@ -27,7 +27,7 @@ export const DashboardPage: FC = () => {
 
   return (
     <div className={styles.page}>
-      <p className={styles.greeting}>{getGreeting()}, {user?.username ?? 'Doctor'}</p>
+      <p className={styles.greeting}>{getGreeting()}, {user?.email?.split('@')[0] ?? 'Doctor'}</p>
       <p className={styles.date}>
         {new Date().toLocaleDateString('es-PE', {
           weekday: 'long',
@@ -40,7 +40,7 @@ export const DashboardPage: FC = () => {
       <div className={styles.statsGrid}>
         <StatCard icon={ImagesIcon} value={String(stats?.totalImages ?? 0)} label="Imágenes DICOM" color={tokens.accent} />
         <StatCard icon={BookIcon} value={String(stats?.totalCourses ?? 0)} label="Asignaturas" color={tokens.blue} />
-        {/* <StatCard icon={FolderIcon} value={String(stats?.totalCollections ?? 0)} label="Colecciones por curso" color={tokens.amber} /> */}
+        <StatCard icon={FolderIcon} value={String(stats?.totalCollections ?? 0)} label="Colecciones" color={tokens.amber} />
         <StatCard icon={CodeIcon} value={String(stats?.totalEmbeds ?? 0)} label="Visores publicados" color={tokens.purple} />
         <StatCard icon={GlobeIcon} value={String(stats?.totalCorsDomains ?? 0)} label="Dominios CORS" color={tokens.cyan} />
       </div>

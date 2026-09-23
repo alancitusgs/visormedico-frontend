@@ -11,9 +11,10 @@ import { ViewerPage } from '@/pages/Viewer/ViewerPage';
 import { PeriodsPage } from '@/pages/Periods/PeriodsPage';
 import { CoursesPage } from '@/pages/Courses/CoursesPage';
 import { CourseDetailPage } from '@/pages/Courses/CourseDetailPage';
-// import { CollectionsPage } from '@/pages/Collections/CollectionsPage';
-// import { CollectionDetailPage } from '@/pages/Collections/CollectionDetailPage';
+import { CollectionsPage } from '@/pages/Collections/CollectionsPage';
+import { CollectionDetailPage } from '@/pages/Collections/CollectionDetailPage';
 import { EmbedsPage } from '@/pages/Embeds/EmbedsPage';
+import { VisitsPage } from '@/pages/Visits/VisitsPage';
 import { CorsPage } from '@/pages/Cors/CorsPage';
 import { UsersPage } from '@/pages/Users/UsersPage';
 import { SharedViewerPage } from '@/pages/SharedViewer/SharedViewerPage';
@@ -43,9 +44,10 @@ const App = () => (
         <Route path="/periods" element={<PeriodsPage />} />
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:courseId" element={<CourseDetailPage />} />
-        {/* <Route path="/collections" element={<CollectionsPage />} /> */}
-        {/* <Route path="/collections/:collectionId" element={<CollectionDetailPage />} /> */}
+        <Route path="/collections" element={<CollectionsPage />} />
+        <Route path="/collections/:collectionId" element={<CollectionDetailPage />} />
         <Route path="/embeds" element={<EmbedsPage />} />
+        <Route path="/visits" element={<VisitsPage />} />
         <Route path="/cors" element={<CorsPage />} />
         {/* Solo administradores */}
         <Route element={<AdminRoute />}>
